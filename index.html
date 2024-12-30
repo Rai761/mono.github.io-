@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Happy New Year Countdown</title>
+  <style>
+    body {
+      background-color: #1c1c1c;
+      color: white;
+      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #countdown {
+      font-size: 3em;
+      color: #ffea92;
+      margin-top: 20px;
+      text-shadow: 0 0 10px rgba(255, 234, 146, 0.8), 0 0 20px rgba(255, 234, 146, 0.6);
+      animation: glow 1.5s infinite alternate;
+    }
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px rgba(255, 234, 146, 0.8), 0 0 20px rgba(255, 234, 146, 0.6);
+      }
+      to {
+        text-shadow: 0 0 20px rgba(255, 234, 146, 1), 0 0 30px rgba(255, 234, 146, 0.8);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="countdown">00:00:00</div>
+  <script>
+    function startCountdown() {
+      var countdownElement = document.getElementById('countdown');
+      var targetDate = new Date('Jan 1, 2025 00:00:00').getTime();
+
+      var countdownInterval = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = targetDate - now;
+
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdownElement.textContent = ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
+
+        if (distance < 0) {
+          clearInterval(countdownInterval);
+          countdownElement.textContent = 'HAPPY NEW YEAR!';
+          setTimeout(function() {
+            window.location.href = 'fireworks_page.html'; // ไปยังหน้าดอกไม้ไฟ
+          }, 2000); // รอ 2 วินาทีก่อนเปลี่ยนหน้า
+        }
+      }, 1000);
+    }
+
+    startCountdown();
+  </script>
+</body>
+</html>
